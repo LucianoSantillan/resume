@@ -1,27 +1,14 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
-import Button from '@mui/material/Button';
 import { Box, Tab, Tabs, Typography } from '@mui/material';
-import { FC } from 'react';
 import Banner from './components/Banner/Banner';
 import About from './components/About/About';
-
-const inter = Inter({ subsets: ['latin'] })
+import SkillsTab from './components/SkillsTab/SkillsTab';
 
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
   value: number;
-}
-
-const SkillItem: FC<{ content: string, link?: string }> = ({ content, link }) => {
-  return (
-    <span className={styles.skillListItem}>
-      <span className={styles.skillListItemBall}></span>{content}
-    </span>
-  )
 }
 
 function TabPanel(props: TabPanelProps) {
@@ -51,44 +38,6 @@ function a11yProps(index: number) {
   };
 }
 
-const skills = [
-  { label: "Single-page Applications (SPA)", link: "" },
-  { label: "ES6", link: "" },
-  { label: "React", link: "" },
-  { label: "TypeScript", link: "" },
-  { label: "Next.js", link: "" },
-  { label: "Gatsby", link: "" },
-  { label: "Apollo", link: "" },
-  { label: "Webpack", link: "" },
-  { label: "Redux", link: "" },
-  { label: "MobX", link: "" },
-  { label: "Context", link: "" },
-]
-
-const cssSkills = [
-  { label: "Responsive websites", link: "" },
-  { label: "Emotion", link: "" },
-  { label: "styled-components", link: "" },
-  { label: "Material UI", link: "" },
-  { label: "SASS", link: "" },
-]
-
-const backendSkills = [
-  { label: "NET Core", link: "" },
-  { label: "SQL Server", link: "" },
-  { label: "EF Core ORM", link: "" },
-  { label: "ASP.NET MVC", link: "" },
-]
-
-const othersSkills = [
-  { label: "Jest", link: "" },
-  { label: "React testing library", link: "" },
-  { label: "Git / Git Flow", link: "" },
-  { label: "EsLint", link: "" },
-  { label: "Sonar", link: "" },
-  { label: "Figma ", link: "" }
-]
-
 export default function Home() {
   return (
     <>
@@ -113,44 +62,7 @@ export default function Home() {
               </Tabs>
             </Box>
             <TabPanel value={0} index={0}>
-              <span className={styles.skill}>
-                <span className={styles.skillType}>Front-end</span>
-                <span className={styles.skillContent}>
-                  <span className={styles.skillContentTitle}>JavaScript</span>
-                  <br />
-                  <span className={styles.skillContentList}>
-                    {skills.map((skill) => <SkillItem content={skill.label} />)}
-                  </span>
-                  <br />
-                  <br />
-                  <span className={styles.skillContentTitle}>HTML & CSS</span>
-                  <br />
-                  <span className={styles.skillContentList}>
-                    {cssSkills.map((skill) => <SkillItem content={skill.label} />)}
-                  </span>
-
-                </span>
-              </span>
-              <br />
-              <br />
-              <span className={styles.skill}>
-                <span className={styles.skillType}>Back-end</span>
-                <span className={styles.skillContent}>
-                  <span className={styles.skillContentList}>
-                    {backendSkills.map((skill) => <SkillItem content={skill.label} />)}
-                  </span>
-                </span>
-              </span>
-              <br />
-              <br />
-              <span className={styles.skill}>
-                <span className={styles.skillType}>Others</span>
-                <span className={styles.skillContent}>
-                  <span className={styles.skillContentList}>
-                    {othersSkills.map((skill) => <SkillItem content={skill.label} />)}
-                  </span>
-                </span>
-              </span>
+              <SkillsTab />
             </TabPanel>
             {/* <TabPanel value={value} index={1}>
             Item Two
