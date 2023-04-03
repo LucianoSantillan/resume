@@ -71,6 +71,14 @@ export default function VerticalTabs() {
       "User interface development",
       "React classes initiation"
     ]
+  },
+  {
+    position: "ASP.NET MVC FullStack developer",
+    company: "Others",
+    dates: "July 2018 - August 2019 (13 months)",
+    tasks: [
+      "FullStack development"
+    ]
   }
   ];
 

@@ -8,6 +8,8 @@ import { useState } from 'react';
 import VerticalTabs from './components/ExperienceTab/ExperienceTab';
 import Button from '@mui/material/Button';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import Navbar from './components/Navbar/Navbar';
+import Form from './components/ContactForm/ContactForm';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -55,9 +57,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
+        <Navbar></Navbar>
         <Banner />
         <About />
-        <div className={styles.skillsAndExperience}>
+        <div id='skills-and-experience-section' className={styles.skillsAndExperience}>
           <Box sx={{
             width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'
           }}>
@@ -86,7 +89,7 @@ export default function Home() {
           <Button
             variant="contained"
             startIcon={<LinkedInIcon />}
-            href="https://www.linkedin.com/"
+            href="https://www.linkedin.com/in/luciano-santill%C3%A1n-b11ab4178/"
             target="_blank"
             rel="noopener"
             className={styles.linkedInButton}
@@ -95,6 +98,7 @@ export default function Home() {
           </Button>
           );
         </div>
+        <Form></Form>
       </main>
     </>
   )
