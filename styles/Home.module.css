@@ -8,7 +8,8 @@
   background-color: #f5f5f5;
   padding: 100px 0;
   display: flex;
-  justify-content: center
+  justify-content: center;
+  flex-direction: column;
 }
 
 .skill {
@@ -32,29 +33,33 @@
   padding-top: 5px;
 }
 
-.skillContentTitle{
+.skillContentTitle {
   font-size: 20px;
   font-weight: bold;
   color: #000;
 }
 
-.skillContentList{
+.skillContentList {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
 }
 
-.skillListItem{
+.skillListItem {
   color: #212529;
   display: flex;
   align-items: center;
 }
 
-.skillListItemBall{
+.skillListItemBall {
   width: 6px;
   height: 6px;
   background-color: var(--primary-color);
   border-radius: 20px;
   display: inline-block;
   margin-right: 3px;
+}
+
+.linkedInButton {
+  align-self: center;
 }

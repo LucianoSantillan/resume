@@ -18,3 +18,12 @@
   margin: auto;
   line-height: 34px;
 }
+
+#about-section {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+#about-section.active {
+  opacity: 1;
+}

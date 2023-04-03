@@ -1,9 +1,13 @@
 import Head from 'next/head'
 import styles from '@/styles/Home.module.css'
-import { Box, Tab, Tabs, Typography } from '@mui/material';
+import { Box, IconButton, NoSsr, Tab, Tabs, Typography } from '@mui/material';
 import Banner from './components/Banner/Banner';
 import About from './components/About/About';
 import SkillsTab from './components/SkillsTab/SkillsTab';
+import { useState } from 'react';
+import VerticalTabs from './components/ExperienceTab/ExperienceTab';
+import Button from '@mui/material/Button';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -39,6 +43,9 @@ function a11yProps(index: number) {
 }
 
 export default function Home() {
+
+  const [tab, setTab] = useState<number>(1)
+
   return (
     <>
       <Head>
@@ -55,14 +62,19 @@ export default function Home() {
             width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'
           }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider', maxWidth: '870px' }}>
-              <Tabs value={0} onChange={() => { }}>
+              <Tabs value={tab} onChange={(_, value) => { console.log(value); setTab(value) }}>
                 <Tab label="SKILLS" {...a11yProps(0)} />
-                {/* <Tab label="Item Two" {...a11yProps(1)} />
-              <Tab label="Item Three" {...a11yProps(2)} /> */}
+                <Tab label="EXPERIENCE" {...a11yProps(1)} />
+                {/* <Tab label="Item Three" {...a11yProps(2)} /> */}
               </Tabs>
             </Box>
-            <TabPanel value={0} index={0}>
+            <TabPanel value={tab} index={0}>
               <SkillsTab />
+            </TabPanel>
+            <TabPanel value={tab} index={1}>
+              <NoSsr>
+                <VerticalTabs />
+              </NoSsr>
             </TabPanel>
             {/* <TabPanel value={value} index={1}>
             Item Two
@@ -71,6 +83,17 @@ export default function Home() {
             Item Three
           </TabPanel> */}
           </Box>
+          <Button
+            variant="contained"
+            startIcon={<LinkedInIcon />}
+            href="https://www.linkedin.com/"
+            target="_blank"
+            rel="noopener"
+            className={styles.linkedInButton}
+          >
+            LinkedIn
+          </Button>
+          );
         </div>
       </main>
     </>

@@ -1,5 +1,14 @@
 import styles from './Banner.module.css'
 import Button from '@mui/material/Button';
+import { scroller as scroll } from 'react-scroll';
+
+const handleClick = () => {
+  scroll.scrollTo('about-section', {
+    duration: 1000, // Duration of the animation
+    delay: 0, // Delay before scrolling starts
+    smooth: 'easeInOutQuint' // Easing function
+  });
+};
 
 export default function Banner() {
     return (
@@ -13,7 +22,7 @@ export default function Banner() {
                     <div className={styles.whoIAm}>
                         I’m a Frontend Developer, specialized in development of web applications using React, Next.js, and more!
                     </div>
-                    <Button variant="contained">FIND OUT MORE</Button>
+                    <Button onClick={handleClick} variant="contained">FIND OUT MORE</Button>
                 </div>
             </div>
         </div>
