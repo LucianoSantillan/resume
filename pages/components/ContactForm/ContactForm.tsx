@@ -1,12 +1,18 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
-import { useState } from "react";
+import React, { useState } from "react";
 import styles from "./ContactForm.module.css";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
 
 interface FormData {
   fullName: string;
   email: string;
   message: string;
 }
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const ContactForm = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -19,6 +25,8 @@ const ContactForm = () => {
     email: false,
     message: false,
   });
+  const [successOpen, setSuccessOpen] = useState(false);
+  const [errorOpen, setErrorOpen] = useState(false);
 
   const handleFormChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -76,22 +84,29 @@ const ContactForm = () => {
                 body: JSON.stringify(formData),
             });
             if (response.ok) {
-                alert("Your message has been sent!");
                 setFormData({
                     fullName: "",
                     email: "",
                     message: "",
                 });
+                setSuccessOpen(true);
             } else {
-                alert("There was an error sending your message. Please try again later.");
+                setErrorOpen(true);
             }
         } catch (error) {
             console.error(error);
-            alert("There was an error sending your message. Please try again later.");
+            setErrorOpen(true);
         }
     }
-}; 
+};
 
+  const handleSuccessClose = () => {
+    setSuccessOpen(false);
+  };
+
+  const handleErrorClose = () => {
+    setErrorOpen(false);
+  };
   return (
     <Box id="contact-section" sx={{ bgcolor: "#f5f5f5", p: 4, color: "#212529" }}>
       <form onSubmit={handleSubmit} style={{maxWidth: '700px', margin: 'auto'}}>
@@ -139,9 +154,24 @@ const ContactForm = () => {
         <Button variant="contained" color="primary" type="submit">
           Submit
         </Button>
+        {successOpen && (
+          <Snackbar open={successOpen} autoHideDuration={6000} onClose={handleSuccessClose}>
+            <Alert onClose={handleSuccessClose} severity="success">
+              Your message has been sent!
+            </Alert>
+          </Snackbar>
+        )}
+        {errorOpen && (
+          <Snackbar open={errorOpen} autoHideDuration={6000} onClose={handleErrorClose}>
+            <Alert onClose={handleErrorClose} severity="error">
+              There was an error sending your message. Please try again later.
+            </Alert>
+          </Snackbar>
+        )}
       </form>
     </Box>
   );
+  
 };
 
 export default ContactForm;
