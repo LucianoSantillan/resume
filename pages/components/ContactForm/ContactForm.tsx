@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import styles from "./ContactForm.module.css";
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
-
+import fetch from 'isomorphic-fetch';
 export const CONTACT_SECTION_ID = "contact-section";
 
 interface FormData {
