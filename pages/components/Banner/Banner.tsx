@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from './Banner.module.css'
 import Button from '@mui/material/Button';
 import { scroller as scroll } from 'react-scroll';

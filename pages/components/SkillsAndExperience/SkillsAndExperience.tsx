@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from './SkillsAndExperience.module.css';
 import { Box, NoSsr, Tab, Tabs, Typography } from '@mui/material';
 import { useState } from 'react';
@@ -70,6 +71,7 @@ export default function SkillsAndExperience() {
                 href="https://www.linkedin.com/in/luciano-santill%C3%A1n-b11ab4178/"
                 target="_blank"
                 rel="noopener"
+                role='button'
                 className={styles.linkedInButton}
             >
                 LinkedIn

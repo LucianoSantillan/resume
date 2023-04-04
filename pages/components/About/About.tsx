@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from './About.module.css'
 
 export const ABOUT_SECTION_ID = 'about-section';
