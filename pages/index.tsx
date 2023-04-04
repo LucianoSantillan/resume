@@ -10,6 +10,7 @@ import Button from '@mui/material/Button';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import Navbar from './components/Navbar/Navbar';
 import Form from './components/ContactForm/ContactForm';
+import Footer from './components/Footer/Footer';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -99,6 +100,7 @@ export default function Home() {
           );
         </div>
         <Form></Form>
+        <Footer />
       </main>
     </>
   )

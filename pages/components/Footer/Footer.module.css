@@ -1,0 +1,12 @@
+.footer {
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    background-color: #343a40;
+}
+
+.footerText {
+    color: #fff;
+    text-align: center;
+    margin: 0;
+}
