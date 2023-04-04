@@ -4,9 +4,9 @@ import { scroller as scroll } from 'react-scroll';
 
 const handleClick = () => {
   scroll.scrollTo('about-section', {
-    duration: 1000, // Duration of the animation
+    duration: 1000,
     delay: 0, // Delay before scrolling starts
-    smooth: 'easeInOutQuint' // Easing function
+    smooth: 'easeInOutQuint'
   });
 };
 

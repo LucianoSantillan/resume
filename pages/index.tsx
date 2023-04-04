@@ -3,7 +3,7 @@ import styles from '@/styles/Home.module.css'
 import Banner from './components/Banner/Banner';
 import About from './components/About/About';;
 import Navbar from './components/Navbar/Navbar';
-import Form from './components/ContactForm/ContactForm';
+import ContactForm from './components/ContactForm/ContactForm';
 import Footer from './components/Footer/Footer';
 import SkillsAndExperience from './components/SkillsAndExperience/SkillsAndExperience'
 
@@ -22,7 +22,7 @@ export default function Home() {
         <Banner />
         <About />
         <SkillsAndExperience />
-        <Form></Form>
+        <ContactForm></ContactForm>
         <Footer />
       </main>
     </>

@@ -6,6 +6,8 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import SkillsTab from '../SkillsTab/SkillsTab';
 import VerticalTabs from '../ExperienceTab/ExperienceTab';
 
+export const SKILLS_AND_EXPERIENCE_SECTION_ID = 'skills-and-experience-section';
+
 interface TabPanelProps {
     children?: React.ReactNode;
     index: number;
@@ -45,7 +47,7 @@ export default function SkillsAndExperience() {
 
     return (
 
-        <div id='skills-and-experience-section' className={styles.skillsAndExperience}>
+        <div id={SKILLS_AND_EXPERIENCE_SECTION_ID} className={styles.skillsAndExperience}>
             <div className={styles.container}>
                 <div className={styles.tabsContainer}>
                     <Tabs value={tab} onChange={(_, value) => { console.log(value); setTab(value) }}>
