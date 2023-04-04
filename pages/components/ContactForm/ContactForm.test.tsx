@@ -6,7 +6,7 @@ import { rest } from "msw";
 import { setupServer } from "msw/node";
 
 const server = setupServer(
-    rest.post("https://formspree.io/f/xbjezpnk", (req, res, ctx) => {
+    rest.post("https://formspree.io/f/xbjezpnk", (req: any, res: (arg0: any) => any, ctx: { status: (arg0: number) => any; }) => {
         return res(ctx.status(200));
     })
 );
@@ -49,7 +49,7 @@ describe("ContactForm", () => {
 
     test("handles server error and shows error message", async () => {
         server.use(
-            rest.post("https://formspree.io/f/xbjezpnk", (req, res, ctx) => {
+            rest.post("https://formspree.io/f/xbjezpnk", (req: any, res: (arg0: any) => any, ctx: { status: (arg0: number) => any; }) => {
                 return res(ctx.status(500));
             })
         );
@@ -73,7 +73,7 @@ describe("ContactForm", () => {
 
     test("handles network error and shows error message", async () => {
         server.use(
-            rest.post("https://formspree.io/f/xbjezpnk", (req, res, ctx) => {
+            rest.post("https://formspree.io/f/xbjezpnk", (req: any, res: { networkError: (arg0: string) => any; }, ctx: any) => {
                 return res.networkError("Failed to connect");
             })
         );
