@@ -27,3 +27,13 @@
 #about-section.active {
   opacity: 1;
 }
+
+@media (max-width: 768px) {
+  .aboutSectionTitle {
+    font-size: 25px;
+  }
+
+  .aboutSection {
+    padding: 22px;
+  }
+}
