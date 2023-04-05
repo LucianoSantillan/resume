@@ -24,7 +24,7 @@ function TabPanel(props: TabPanelProps) {
             hidden={value !== index}
             id={`simple-tabpanel-${index}`}
             aria-labelledby={`simple-tab-${index}`}
-            style={{overflow: 'auto'}}
+            style={{overflow: 'auto', maxWidth: '100%'}}
             {...other}
         >
             {value === index && (
@@ -45,7 +45,7 @@ function a11yProps(index: number) {
 
 export default function SkillsAndExperience() {
 
-    const [tab, setTab] = useState<number>(1)
+    const [tab, setTab] = useState<number>(0)
 
     return (
 

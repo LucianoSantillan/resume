@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './SkillsTab.module.css'
 import { FC } from 'react';
+import { Paper } from '@mui/material';
 
 const skills = [
     { label: "Single-page Applications (SPA)", link: "" },
@@ -50,7 +51,7 @@ const SkillItem: FC<{ content: string, link?: string }> = ({ content, link }) =>
 
 const SkillCategory: FC<{ title: string, skills: { label: string, link?: string }[] }> = ({ title, skills }) => {
     return (
-        <span className={styles.skill}>
+        <Paper className={styles.skill}>
             <span className={styles.skillType}>{title}</span>
             <span className={styles.skillContent}>
                 <span className={styles.skillContentList}>
@@ -59,20 +60,20 @@ const SkillCategory: FC<{ title: string, skills: { label: string, link?: string 
                     ))}
                 </span>
             </span>
-        </span>
+        </Paper>
     );
 };
 
 export default function SkillsTab() {
     return (
         <>
-            <SkillCategory title="Front-end" skills={[...skills, ...cssSkills]} />
+            <SkillCategory title="FRONT-END" skills={[...skills, ...cssSkills]} />
             <br />
             <br />
-            <SkillCategory title="Back-end" skills={backendSkills} />
+            <SkillCategory title="BACK-END" skills={backendSkills} />
             <br />
             <br />
-            <SkillCategory title="Others" skills={othersSkills} />
+            <SkillCategory title="OTHERS" skills={othersSkills} />
         </>
     );
 }

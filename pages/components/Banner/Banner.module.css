@@ -61,7 +61,7 @@
   @media screen and (min-width: 800px) {
     .bannerContent {
       flex-direction: row;
-      height: auto;
+      /* height: auto; */
       max-width: 100%;
     }
     .shapeOuterChevronRight {
