@@ -1,0 +1,18 @@
+.navbar {
+  display: flex;
+  justify-content: center;
+}
+
+.burgerMenu {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    display: none;
+  }
+
+  .burgerMenu {
+    display: block;
+  }
+}
