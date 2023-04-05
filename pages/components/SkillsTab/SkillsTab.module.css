@@ -1,16 +1,15 @@
 .skillsAndExperience {
     background-color: #f5f5f5;
-    padding: 100px 0;
+    padding: 80px 20px;
+  }
+  
+  .skill {
     display: flex;
-    justify-content: center
-}
-
-.skill {
-    display: flex;
-    gap: 20px;
-}
-
-.skillType {
+    flex-direction: column;
+    margin-bottom: 40px;
+  }
+  
+  .skillType {
     padding: 10px;
     background-color: var(--primary-color);
     min-width: 105px;
@@ -18,37 +17,57 @@
     justify-content: center;
     align-items: center;
     align-self: flex-start;
-}
-
-.skillContent {
-    width: 700px;
-    max-width: 100%;
+  }
+  
+  .skillContent {
     padding-top: 5px;
-}
-
-.skillContentTitle {
+  }
+  
+  .skillContentTitle {
     font-size: 20px;
     font-weight: bold;
     color: #000;
-}
-
-.skillContentList {
+    margin-bottom: 10px;
+  }
+  
+  .skillContentList {
     display: flex;
-    gap: 10px;
     flex-wrap: wrap;
-}
-
-.skillListItem {
+    gap: 10px;
+    margin-top: 5px;
+  }
+  
+  .skillListItem {
     color: #212529;
     display: flex;
     align-items: center;
-}
-
-.skillListItemBall {
+    padding: 5px;
+  }
+  
+  .skillListItemBall {
     width: 6px;
     height: 6px;
     background-color: var(--primary-color);
     border-radius: 20px;
     display: inline-block;
     margin-right: 3px;
-}
+  }
+  
+  @media (min-width: 768px) {
+    .skillsAndExperience {
+      display: flex;
+      justify-content: center;
+      padding: 100px 0;
+    }
+  
+    .skill {
+      flex-direction: row;
+      margin-right: 40px;
+    }
+  
+    .skillContent {
+      width: 400px;
+      max-width: 100%;
+    }
+  }
+  

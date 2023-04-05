@@ -1,13 +1,6 @@
-import styles from '@/styles/Home.module.css'
+import React from 'react';
+import styles from './SkillsTab.module.css'
 import { FC } from 'react';
-
-const SkillItem: FC<{ content: string, link?: string }> = ({ content, link }) => {
-    return (
-        <span className={styles.skillListItem}>
-            <span className={styles.skillListItemBall}></span>{content}
-        </span>
-    )
-}
 
 const skills = [
     { label: "Single-page Applications (SPA)", link: "" },
@@ -47,47 +40,39 @@ const othersSkills = [
     { label: "Figma ", link: "" }
 ]
 
+const SkillItem: FC<{ content: string, link?: string }> = ({ content, link }) => {
+    return (
+        <span className={styles.skillListItem}>
+            <span className={styles.skillListItemBall}></span>{content}
+        </span>
+    );
+};
+
+const SkillCategory: FC<{ title: string, skills: { label: string, link?: string }[] }> = ({ title, skills }) => {
+    return (
+        <span className={styles.skill}>
+            <span className={styles.skillType}>{title}</span>
+            <span className={styles.skillContent}>
+                <span className={styles.skillContentList}>
+                    {skills.map((skill) => (
+                        <SkillItem key={skill.label} content={skill.label} />
+                    ))}
+                </span>
+            </span>
+        </span>
+    );
+};
+
 export default function SkillsTab() {
     return (
         <>
-            <span className={styles.skill}>
-                <span className={styles.skillType}>Front-end</span>
-                <span className={styles.skillContent}>
-                    <span className={styles.skillContentTitle}>JavaScript</span>
-                    <br />
-                    <span className={styles.skillContentList}>
-                        {skills.map((skill) => <SkillItem key={skill.label} content={skill.label} />)}
-                    </span>
-                    <br />
-                    <br />
-                    <span className={styles.skillContentTitle}>HTML & CSS</span>
-                    <br />
-                    <span className={styles.skillContentList}>
-                        {cssSkills.map((skill) => <SkillItem key={skill.label} content={skill.label} />)}
-                    </span>
-
-                </span>
-            </span>
+            <SkillCategory title="Front-end" skills={[...skills, ...cssSkills]} />
             <br />
             <br />
-            <span className={styles.skill}>
-                <span className={styles.skillType}>Back-end</span>
-                <span className={styles.skillContent}>
-                    <span className={styles.skillContentList}>
-                        {backendSkills.map((skill) => <SkillItem key={skill.label} content={skill.label} />)}
-                    </span>
-                </span>
-            </span>
+            <SkillCategory title="Back-end" skills={backendSkills} />
             <br />
             <br />
-            <span className={styles.skill}>
-                <span className={styles.skillType}>Others</span>
-                <span className={styles.skillContent}>
-                    <span className={styles.skillContentList}>
-                        {othersSkills.map((skill) => <SkillItem key={skill.label} content={skill.label} />)}
-                    </span>
-                </span>
-            </span>
+            <SkillCategory title="Others" skills={othersSkills} />
         </>
-    )
+    );
 }

@@ -1,7 +1,13 @@
 .aboutSectionTitle {
-    font-size: 35px;
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  font-size: 35px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .aboutSectionTitle {
+    font-size: 25px;
   }
+}
