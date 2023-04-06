@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './SkillsTab.module.css'
 import { FC } from 'react';
-import { Paper } from '@mui/material';
+import { Chip, Paper } from '@mui/material';
 
 const skills = [
     { label: "Single-page Applications (SPA)", link: "" },
@@ -43,9 +43,7 @@ const othersSkills = [
 
 const SkillItem: FC<{ content: string, link?: string }> = ({ content, link }) => {
     return (
-        <span className={styles.skillListItem}>
-            <span className={styles.skillListItemBall}></span>{content}
-        </span>
+        <Chip label={content} style={{ backgroundColor: '#6eadeb', color: 'white' }} />
     );
 };
 

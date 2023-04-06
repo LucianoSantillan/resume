@@ -11,7 +11,7 @@
   .bannerContent {
     background: rgba(255, 255, 255, 0.9);
     height: 100vh;
-    padding: 66px;
+    padding: 23px;
     display: flex;
     flex-direction: column;
     justify-content: center;
