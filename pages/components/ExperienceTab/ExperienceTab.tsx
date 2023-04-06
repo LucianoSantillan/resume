@@ -102,12 +102,12 @@ export default function VerticalTabs() {
         sx={{ borderRight: 1, borderColor: 'divider' }}
       >
         {jobData.map((job, index) => (
-          <Tab label={job.company} {...a11yProps(index)} />
+          <Tab key={job.company} label={job.company} {...a11yProps(index)} />
         ))}
       </Tabs>
       {jobData.map((job, index) => (
         // <div className={styles.tabPanel} >
-        <TabPanel value={value} index={index}>
+        <TabPanel key={job.company} value={value} index={index}>
           <Typography className={styles.positionText}>
             {job.position}</Typography>
           <Typography className={styles.datesText} variant="h5">{job.dates}</Typography>
