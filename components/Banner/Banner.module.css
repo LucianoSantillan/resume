@@ -1,83 +1,92 @@
 .banner {
-    background: url(./compuyter\ background\ light.avif) no-repeat center;
-    background-size: cover;
-    width: 100vw;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* i need this img to have be a contained img */
+.backgroundImage {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  object-fit: cover;
+  height: 100%;
+}
+
+.bannerContent {
+  background: rgba(255, 255, 255, 0.9);
+  height: 100vh;
+  padding: 23px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.bannerTextAndBtn {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  text-align: center;
+}
+
+.shapeOuterChevronRight {
+  display: flex;
+  flex-shrink: 0;
+  height: calc(150px + 4vw);
+  width: calc(150px + 4vw);
+  margin: 25px;
+  background-image: linear-gradient(to bottom right, #ff3cac, #562b7c, var(--primary-color));
+  -webkit-clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
+  clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
+}
+
+.shapeInnerChevronRight {
+  height: calc(130px + 4vw);
+  width: calc(130px + 4vw);
+  background-size: cover;
+  margin: auto;
+  -webkit-clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
+  clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
+}
+
+.sayHi {
+  color: #69757d;
+  font-size: 19px;
+}
+
+.whoIAm {
+  color: #212529;
+  font-size: 21px;
+}
+
+@media screen and (min-width: 800px) {
   .bannerContent {
-    background: rgba(255, 255, 255, 0.9);
-    height: 100vh;
-    padding: 23px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .bannerTextAndBtn {
+    flex-direction: row;
+    /* height: auto; */
     max-width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-    text-align: center;
   }
-  
+
   .shapeOuterChevronRight {
-    display: flex;
-    flex-shrink: 0;
-    height: calc(150px + 4vw);
-    width: calc(150px + 4vw);
-    margin: 25px;
-    background-image: linear-gradient(to bottom right, #ff3cac, #562b7c, var(--primary-color));
-    -webkit-clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
-    clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
+    height: 250px;
+    width: 250px;
+    margin: 0 50px 0 0;
   }
-  
-  .shapeInnerChevronRight {
-    height: calc(130px + 4vw);
-    width: calc(130px + 4vw);
-    background: url(./yo.jfif) no-repeat center;
-    background-size: cover;
-    margin: auto;
-    -webkit-clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
-    clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
+
+  .bannerTextAndBtn {
+    align-items: flex-start;
+    text-align: left;
   }
-  
+
   .sayHi {
-    color: #69757d;
-    font-size: 19px;
+    font-size: 24px;
   }
-  
+
   .whoIAm {
-    color: #212529;
-    font-size: 21px;
+    font-size: 40px;
   }
-  
-  @media screen and (min-width: 800px) {
-    .bannerContent {
-      flex-direction: row;
-      /* height: auto; */
-      max-width: 100%;
-    }
-    .shapeOuterChevronRight {
-      height: 250px;
-      width: 250px;
-      margin: 0 50px 0 0;
-    }
-    .bannerTextAndBtn {
-      align-items: flex-start;
-      text-align: left;
-    }
-    .sayHi {
-      font-size: 24px;
-    }
-    .whoIAm {
-      font-size: 40px;
-    }
-  }
-  
+}

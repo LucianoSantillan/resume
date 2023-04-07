@@ -2,6 +2,9 @@ import React from 'react';
 import styles from './Banner.module.css';
 import Button from '@mui/material/Button';
 import { scroller as scroll } from 'react-scroll';
+import Image from 'next/image'
+import lucianoPic from './yo.jpg'
+import bannerBackground from './compuyter background light.avif'
 
 const handleClick = () => {
   scroll.scrollTo('about-section', {
@@ -15,8 +18,19 @@ export default function Banner() {
   return (
     <div className={styles.banner}>
       <div className={styles.bannerContent}>
+        <Image
+          className={styles.backgroundImage}
+          src={bannerBackground}
+          alt="Picture of the author"
+          placeholder="blur"
+        />
         <div className={styles.shapeOuterChevronRight}>
-          <div className={styles.shapeInnerChevronRight}></div>
+          <Image
+            className={styles.shapeInnerChevronRight}
+            src={lucianoPic}
+            alt="Picture of the author"
+            placeholder="blur"
+          />
         </div>
         <div className={styles.bannerTextAndBtn}>
           <div className={styles.sayHi}> Hi! My name is Luciano</div>
