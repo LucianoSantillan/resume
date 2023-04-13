@@ -24,12 +24,12 @@ function TabPanel(props: TabPanelProps) {
             hidden={value !== index}
             id={`simple-tabpanel-${index}`}
             aria-labelledby={`simple-tab-${index}`}
-            style={{overflow: 'auto', maxWidth: '100%'}}
+            style={{ overflow: 'auto', maxWidth: '100%' }}
             {...other}
         >
             {value === index && (
                 <Box sx={{ p: 3 }}>
-                    <Typography>{children}</Typography>
+                    <Typography component={"span"}>{children}</Typography>
                 </Box>
             )}
         </div>
@@ -38,7 +38,7 @@ function TabPanel(props: TabPanelProps) {
 
 function a11yProps(index: number) {
     return {
-        style: {fontSize: '23px'},
+        style: { fontSize: '23px' },
         id: `simple-tab-${index}`,
         'aria-controls': `simple-tabpanel-${index}`,
     };
@@ -58,13 +58,11 @@ export default function SkillsAndExperience() {
                         <Tab label="EXPERIENCE" {...a11yProps(1)} />
                     </Tabs>
                 </div>
-                <TabPanel value={tab} index={0}>
+                <TabPanel data-aos="fade-left" value={tab} index={0}>
                     <SkillsTab />
                 </TabPanel>
-                <TabPanel value={tab} index={1}>
-                    <NoSsr>
-                        <VerticalTabs />
-                    </NoSsr>
+                <TabPanel data-aos="fade-left" value={tab} index={1}>
+                    <VerticalTabs />
                 </TabPanel>
             </div>
             <Button

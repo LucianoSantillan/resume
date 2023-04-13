@@ -16,7 +16,8 @@ const handleClick = () => {
 
 export default function Banner() {
   return (
-    <div className={styles.banner}>
+    <div
+      className={styles.banner}>
       <div className={styles.bannerContent}>
         <Image
           className={styles.backgroundImage}
@@ -24,7 +25,7 @@ export default function Banner() {
           alt="Picture of the author"
           placeholder="blur"
         />
-        <div className={styles.shapeOuterChevronRight}>
+        <div data-aos="fade-right" className={styles.shapeOuterChevronRight}>
           <Image
             className={styles.shapeInnerChevronRight}
             src={lucianoPic}
@@ -32,7 +33,7 @@ export default function Banner() {
             placeholder="blur"
           />
         </div>
-        <div className={styles.bannerTextAndBtn}>
+        <div data-aos="fade-up-left" className={styles.bannerTextAndBtn}>
           <div className={styles.sayHi}> Hi! My name is Luciano</div>
           <div className={styles.whoIAm}>
             I’m a Frontend Developer, specialized in development of web applications using React, Next.js, and more!

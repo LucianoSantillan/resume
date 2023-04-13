@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head'
 import styles from '@/styles/Home.module.css'
 import Banner from '@/components/Banner/Banner';
@@ -7,8 +7,16 @@ import Navbar from '@/components/Navbar/Navbar';
 import ContactForm from '@/components/ContactForm/ContactForm';
 import Footer from '@/components/Footer/Footer';
 import SkillsAndExperience from '@/components/SkillsAndExperience/SkillsAndExperience'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export default function Home() {
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      AOS.init();
+    }
+  }, []);
 
   return (
     <>
