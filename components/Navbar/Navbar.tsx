@@ -32,18 +32,19 @@ function Navbar() {
     <AppBar position="fixed" sx={{ backgroundColor: "#fff", color: 'black', top: 0 }}>
       <Toolbar>
         <div className={styles.navbar}>
-        <Button onClick={() => handleNavLinkClick(ABOUT_SECTION_ID)} color="inherit">About</Button>
+          <Button onClick={() => handleNavLinkClick(ABOUT_SECTION_ID)} color="inherit">About</Button>
           <Button onClick={() => handleNavLinkClick(SKILLS_AND_EXPERIENCE_SECTION_ID)} color="inherit">Experience</Button>
           <Button onClick={() => handleNavLinkClick(CONTACT_SECTION_ID)} color="inherit">Contact</Button>
         </div>
-        <IconButton
-          edge="end"
-          className={styles.burgerMenu}
-          color="inherit"
-          onClick={handleBurgerMenuClick}
-        >
-          {burgerMenuOpen ? <CloseIcon /> : <MenuIcon />}
-        </IconButton>
+        <div className={styles.burgerMenu}>
+          <IconButton
+            edge="end"
+            color="inherit"
+            onClick={handleBurgerMenuClick}
+          >
+            {burgerMenuOpen ? <CloseIcon /> : <MenuIcon />}
+          </IconButton>
+        </div>
       </Toolbar>
       {burgerMenuOpen && (
         <Toolbar>
