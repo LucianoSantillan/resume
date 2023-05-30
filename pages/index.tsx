@@ -9,6 +9,7 @@ import Footer from '@/components/Footer/Footer';
 import SkillsAndExperience from '@/components/SkillsAndExperience/SkillsAndExperience'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import Articles from '@/components/Articles/Articles';
 
 export default function Home() {
 
@@ -31,6 +32,7 @@ export default function Home() {
         <Banner />
         <About />
         <SkillsAndExperience />
+        <Articles />
         <ContactForm></ContactForm>
         <Footer />
       </main>
