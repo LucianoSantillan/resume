@@ -1,14 +1,15 @@
 .root {
     padding: 70px 23px;
-    background: white;
+    background: #F9F9F9;
 }
 
 .title {
-  font-size: 35px;
-  margin-bottom: 35px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    font-size: 35px;
+    margin-bottom: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #212529;
 }
 
 .paper {

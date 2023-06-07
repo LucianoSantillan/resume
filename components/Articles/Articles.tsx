@@ -2,6 +2,7 @@ import React from 'react';
 import { Typography, Paper, Button } from '@mui/material';
 import { useRouter } from 'next/router';
 import styles from './Articles.module.css';
+import { Article } from '@/pages/ArticlesPage';
 
 function Articles() {
   const router = useRouter();
@@ -40,20 +41,10 @@ function Articles() {
   return (
     <div className={styles.root}>
       <div data-aos="fade-left" className={styles.title}>SELECTED ARTICLES</div>
-      <div style={{ display: 'grid', gap: '30px', gridTemplateColumns: '1fr 1fr 1fr' }}>
+      <div style={{ display: 'grid', gap: '30px', gridTemplateColumns: '1fr 1fr 1fr', justifyItems: 'center' }}>
         {articles.map((article) => (
           <div style={{ display: 'flex' }} key={article.id}>
-            <Paper className={styles.paper}>
-              <img src={article.imageUrl} alt={article.title} className={styles.image} />
-              <div style={{padding: '18px'}}>
-                <Typography variant="h5" component="h2" style={{ marginBottom: '8px' }}>
-                  {article.title}
-                </Typography>
-                <Typography variant="body2" component="p">
-                  {article.description}
-                </Typography>
-              </div>
-            </Paper>
+            <Article article={article} />
           </div>
         ))}
       </div>

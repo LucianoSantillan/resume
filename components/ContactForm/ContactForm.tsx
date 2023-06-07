@@ -115,7 +115,7 @@ const ContactForm = () => {
     };
 
     return (
-        <Box id={CONTACT_SECTION_ID} sx={{ bgcolor: "#f5f5f5", p: 4, color: "#212529" }}>
+        <Box id={CONTACT_SECTION_ID} sx={{ bgcolor: "#f5f5f5", p: 4, color: "#212529", padding: "70px 23px" }}>
             <form onSubmit={handleSubmit} style={{ maxWidth: "700px", margin: "auto" }}>
                 <div className={styles.aboutSectionTitle}>CONTACT</div>
                 <TextField
