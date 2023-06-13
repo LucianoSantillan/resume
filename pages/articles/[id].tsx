@@ -1,13 +1,63 @@
-import React from 'react'
-import { useRouter } from 'next/router'
+import React, { FC, useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { Typography, Paper } from '@mui/material';
+import Navbar from '@/components/Navbar/Navbar';
+import styles from './Article.module.css';
 
-export default function Article() {
-  const router = useRouter()
-  const { id } = router.query
+interface Article {
+  id: number;
+  title: string;
+  description: string;
+  content: string;
+}
+
+function Article() {
+  const router = useRouter();
+  const { id } = router.query;
+  const [article, setArticle] = useState<Article | null>(null);
+
+  useEffect(() => {
+    async function fetchArticle() {
+      // const response = await fetch(`http://localhost:3000/articles/${id}`);
+      // const article = await response.json();
+      // setArticle(article);
+      setArticle({
+        id: 1,
+        title: "titulo",
+        description: "descripcion",
+        content: "content",
+      });
+    }
+
+    if (id) {
+      fetchArticle();
+    }
+  }, [id]);
+
+  if (!article) {
+    return null;
+  }
 
   return (
     <div>
-      <h1>Article: {id}</h1>
+      <Navbar />
+      <div className={styles.container}>
+        <div className={styles.paper}>
+          <div className={styles.header}>
+            <Typography variant="h4" component="h1" className={styles.title}>
+              {article.title}
+            </Typography>
+            <Typography variant="subtitle1" component="p" className={styles.description}>
+              {article.description}
+            </Typography>
+          </div>
+          <div className={styles.content}>
+            <Typography variant="body1" component="div" dangerouslySetInnerHTML={{ __html: article.content }} />
+          </div>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
+
+export default Article;

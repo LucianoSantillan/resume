@@ -1,0 +1,38 @@
+.container {
+    display: flex;
+    justify-content: center;
+    padding: 24px;
+    margin-top: 56px;
+    background-color: #F9F9F9;
+    color: #212529;
+    min-height: 100vh;
+  }
+  
+  .paper {
+    width: 100%;
+    max-width: 800px;
+    padding: 24px;
+  }
+  
+  .header {
+    margin-bottom: 24px;
+  }
+  
+  .title {
+    margin-bottom: 8px;
+  }
+  
+  .description {
+    color: #666;
+    margin-bottom: 16px;
+  }
+  
+  .content {
+    line-height: 1.5;
+  }
+  
+  @media (max-width: 600px) {
+    .paper {
+      padding: 16px;
+    }
+  }
