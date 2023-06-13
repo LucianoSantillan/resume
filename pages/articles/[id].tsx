@@ -18,17 +18,15 @@ function Article() {
 
   useEffect(() => {
     async function fetchArticle() {
-      // const response = await fetch(`http://localhost:3000/articles/${id}`);
-      // const article = await response.json();
-      // setArticle(article);
-      setArticle({
-        id: 1,
-        title: "titulo",
-        description: "descripcion",
-        content: "content",
-      });
+      try {
+        const response = await fetch(`http://localhost:3001/articles/${id}`);
+        if (response.ok) {
+          setArticle(await response.json());
+        }
+      } catch (error) {
+        console.error(error);
+      }
     }
-
     if (id) {
       fetchArticle();
     }

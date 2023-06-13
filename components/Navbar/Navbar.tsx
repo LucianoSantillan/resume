@@ -54,7 +54,7 @@ function Navbar() {
         router.push(`/#${CONTACT_SECTION_ID}`);
       }
     } else if (clickedNavItem === NavItem.articles) {
-      router.push('/ArticlesPage');
+      router.push('/articles');
     }
   };
 
