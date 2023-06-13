@@ -1,7 +1,8 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Grid, Typography, Paper, Button } from '@mui/material';
 import styles from './ArticlesPage.module.css';
 import Navbar from '@/components/Navbar/Navbar';
+import { useRouter } from 'next/router';
 
 interface Article {
   id: number;
@@ -11,36 +12,31 @@ interface Article {
 
 function Articles() {
 
-  const articles: Article[] = [
-    {
-      id: 1,
-      title: 'Article 1',
-      description: 'This is the description for article 1.',
-    },
-    {
-      id: 2,
-      title: 'Article 2',
-      description: 'This is the description for article 2.'
-    },
-    {
-      id: 3,
-      title: 'Article 3',
-      description: 'This is the description for article 3.'
-    },
-    {
-      id: 4,
-      title: 'Article 4',
-      description: 'This is the description for article 4.'
-    },
-  ];
+  const router = useRouter();
+
+  const [articles, setArticles] = useState<Article[]>([]);
+
+  const goToArticle = (articleId: number) => {
+    router.push(`/articles/${articleId}`);
+  };
+
+  useEffect(() => {
+    async function fetchArticles() {
+      const response = await fetch('http://localhost:3001/articles');
+      const articles = await response.json();
+      setArticles(articles);
+    }
+
+    fetchArticles();
+  }, []);
 
   return (
     <div className={styles.root}>
       <Navbar />
       <Grid container spacing={3}>
-        {articles.map((article) => (
+        {articles.map((article: Article) => (
           <Grid item xs={12} sm={6} md={4} key={article.id}>
-            <Article article={article} />
+            <Article handleGoToArticle={() => goToArticle(article.id)} article={article} />
           </Grid>
         ))}
       </Grid>
@@ -50,7 +46,7 @@ function Articles() {
 
 export default Articles;
 
-export const Article: FC<{ article: Article }> = ({ article }) => {
+export const Article: FC<{ article: Article, handleGoToArticle?: () => void }> = ({ article, handleGoToArticle }) => {
   return (
     <Paper className={styles.paper}>
       <div style={{ padding: '18px' }}>
@@ -60,7 +56,7 @@ export const Article: FC<{ article: Article }> = ({ article }) => {
         <Typography variant="body2" component="p">
           {article.description}
         </Typography>
-        <Button variant="contained" color="primary" style={{ marginTop: '16px' }}>
+        <Button onClick={handleGoToArticle} variant="contained" color="primary" style={{ marginTop: '16px' }}>
           Read More
         </Button>
       </div>

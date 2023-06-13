@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography, Paper, Button } from '@mui/material';
 import { useRouter } from 'next/router';
 import styles from './Articles.module.css';
-import { Article } from '@/pages/ArticlesPage';
+import { Article } from '@/pages/articles';
 
 function Articles() {
   const router = useRouter();
@@ -35,7 +35,7 @@ function Articles() {
   ];
 
   const handleWatchMoreClick = () => {
-    router.push('/ArticlesPage');
+    router.push('/articles');
   };
 
   return (
