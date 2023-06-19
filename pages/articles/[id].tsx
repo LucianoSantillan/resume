@@ -19,7 +19,10 @@ function Article() {
   useEffect(() => {
     async function fetchArticle() {
       try {
-        const response = await fetch(`http://localhost:3001/articles/${id}`);
+        // const response = await fetch(`http://localhost:3001/articles/${id}`);
+        const apiUrl = process.env.API_URL;
+        console.log(apiUrl);
+        const response = await fetch(`${apiUrl}/articles/${id}`);
         if (response.ok) {
           setArticle(await response.json());
         }

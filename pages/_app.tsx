@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react'
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import Router from "next/router"
-
 import styles from './Loading.module.css';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
 
 function Loading() {
   return (
