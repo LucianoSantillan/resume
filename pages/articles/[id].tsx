@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Typography, Paper } from '@mui/material';
 import Navbar from '@/components/Navbar/Navbar';
@@ -19,7 +19,6 @@ function Article() {
   useEffect(() => {
     async function fetchArticle() {
       try {
-        // const response = await fetch(`http://localhost:3001/articles/${id}`);
         const apiUrl = process.env.API_URL;
         console.log(apiUrl);
         const response = await fetch(`${apiUrl}/articles/${id}`);
