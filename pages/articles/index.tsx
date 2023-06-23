@@ -34,7 +34,8 @@ function Articles() {
   useEffect(() => {
     async function fetchArticles() {
       try {
-        const response = await fetch('http://localhost:3001/articles');
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+        const response = await fetch(`${apiUrl}/articles`);
         const articles = await response.json() as [];
         if (articles.length === 0) setArticles(NONE_ARTICLE_HAS_BEEN_CREATED_YET)
         else if (articles.length > 0) setArticles(articles);
