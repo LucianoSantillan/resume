@@ -1,0 +1,11 @@
+.root {
+    margin-top: 56px;
+    padding: 50px 50px;
+    /*navbar height */
+    background-color: #F9F9F9;
+    min-height: 100vh;
+}
+
+.title {
+    color: #212529;
+}
