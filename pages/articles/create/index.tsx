@@ -1,10 +1,10 @@
 import React, { FC, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { TextField, Button, Typography, Snackbar } from '@mui/material';
+import { TextField, Button, Typography } from '@mui/material';
 import Navbar from '@/components/Navbar/Navbar';
 import styles from './Create.module.css';
-import MuiAlert, { AlertProps } from '@mui/material/Alert';
+import SnackbarAlert from '@/components/SnackbarAlert/SnackbarAlert';
 
 const CreatePage: FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -46,35 +46,29 @@ const CreatePage: FC = () => {
     },
   });
 
-  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
+  const handleClose = () => {
     setOpen(false);
   };
 
-  const handleCloseSuccessAlert = (event?: React.SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
+  const handleCloseSuccessAlert = () => {
     setOpenSuccessAlert(false);
   };
 
   return (
     <div className={styles.root}>
       <Navbar />
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
-          An unexpected error has ocurred
-        </Alert>
-      </Snackbar>
-      <Snackbar open={openSuccessAlert} autoHideDuration={6000} onClose={handleCloseSuccessAlert}>
-        <Alert onClose={handleCloseSuccessAlert} severity="success" sx={{ width: '100%' }}>
-        'Article created successfully'
-        </Alert>
-      </Snackbar>
+      <SnackbarAlert
+        open={open}
+        onClose={handleClose}
+        severity="error"
+        message="An unexpected error has occurred"
+      />
+      <SnackbarAlert
+        open={openSuccessAlert}
+        onClose={handleCloseSuccessAlert}
+        severity="success"
+        message="Article created successfully"
+      />
       <Typography className={styles.title} variant="h4" gutterBottom>
         Create Article
       </Typography>
@@ -108,7 +102,7 @@ const CreatePage: FC = () => {
         <Button
           type="submit"
           variant="contained"
-          //Todo: Show a loading for submiting
+          //Todo: Show a loading for submitting
           disabled={isSubmitting || !formik.isValid}
         >
           Submit
@@ -117,12 +111,5 @@ const CreatePage: FC = () => {
     </div>
   );
 };
-
-const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
-  props,
-  ref,
-) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
 
 export default CreatePage;
