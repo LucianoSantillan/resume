@@ -8,8 +8,7 @@ import SnackbarAlert from '@/components/SnackbarAlert/SnackbarAlert';
 
 const CreatePage: FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [open, setOpen] = React.useState(false);
-  const [openSuccessAlert, setOpenSuccessAlert] = React.useState(false);
+  const [alert, setAlert] = useState<{ severity: 'success' | 'error'; message: string } | null>(null);
 
   const formik = useFormik({
     initialValues: {
@@ -32,13 +31,13 @@ const CreatePage: FC = () => {
           body: JSON.stringify(values),
         });
         if (response.ok) {
-          setOpenSuccessAlert(true)
+          setAlert({ severity: 'success', message: 'Article created successfully' });
         } else {
-          setOpen(true);
+          setAlert({ severity: 'error', message: 'An unexpected error has occurred' });
           console.error(`HTTP error: ${response.status}`);
         }
       } catch (error) {
-        setOpen(true);
+        setAlert({ severity: 'error', message: 'An unexpected error has occurred' });
         console.error(error);
       } finally {
         setIsSubmitting(false);
@@ -46,29 +45,21 @@ const CreatePage: FC = () => {
     },
   });
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleCloseSuccessAlert = () => {
-    setOpenSuccessAlert(false);
+  const handleCloseAlert = () => {
+    setAlert(null);
   };
 
   return (
     <div className={styles.root}>
       <Navbar />
-      <SnackbarAlert
-        open={open}
-        onClose={handleClose}
-        severity="error"
-        message="An unexpected error has occurred"
-      />
-      <SnackbarAlert
-        open={openSuccessAlert}
-        onClose={handleCloseSuccessAlert}
-        severity="success"
-        message="Article created successfully"
-      />
+      {alert && (
+        <SnackbarAlert
+          open={true}
+          onClose={handleCloseAlert}
+          severity={alert.severity}
+          message={alert.message}
+        />
+      )}
       <Typography className={styles.title} variant="h4" gutterBottom>
         Create Article
       </Typography>

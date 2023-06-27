@@ -4,6 +4,7 @@ module.exports = {
     },
     moduleNameMapper: {
         '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
+        '^@/(.*)$': '<rootDir>/$1',
     },
     moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx'],
     testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
