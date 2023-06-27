@@ -1,12 +1,31 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
+import { render, screen, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import CreatePage from '.';
 
-// mock the useRouter hook
 jest.mock('next/router', () => ({
     useRouter: jest.fn().mockReturnValue({}),
 }));
+
+//WHAT IT DOES?: This code intercepts JavaScript's console.error function, and checks if the error message being logged begins with a few specific strings. If it does, the code ignores that error message (it does nothing and returns). If it does not, it proceeds to log the error message as usual.
+//WHY THIS CODE EXIST?: Because of an error message that it was imposible to solve. The page solution: https://cloud.tencent.com/developer/ask/sof/106906222/answer/132192103
+const originalConsoleError = console.error;
+console.error = (...args) => {
+  const firstArg = args[0];
+  if (
+    typeof args[0] === 'string' &&
+    (args[0].startsWith(
+      "Warning: It looks like you're using the wrong act()"
+    ) ||
+      firstArg.startsWith(
+        'Warning: The current testing environment is not configured to support act'
+      ) ||
+      firstArg.startsWith('Warning: You seem to have overlapping act() calls'))
+  ) {
+    return;
+  }
+  originalConsoleError.apply(console, args);
+};
 
 describe('CreatePage', () => {
     it('should render the form', () => {
@@ -30,9 +49,9 @@ describe('CreatePage', () => {
             Promise.resolve(new Response())
         );
         render(<CreatePage />);
-        await act(() => userEvent.type(screen.getByLabelText('Title'), 'Test Title'));
-        await act(() => userEvent.type(screen.getByLabelText('Description'), 'Test Description'));
-        await act(() => userEvent.click(screen.getByRole('button', { name: 'Submit' })));
+        await act(async () => userEvent.type(screen.getByLabelText('Title'), 'Test Title'));
+        await act(async () => userEvent.type(screen.getByLabelText('Description'), 'Test Description'));
+        await act(async () => userEvent.click(screen.getByRole('button', { name: 'Submit' })));
         await waitFor(() => {
             expect(screen.getByText('Article created successfully')).toBeInTheDocument();
         });
@@ -47,13 +66,12 @@ describe('CreatePage', () => {
             }))
         );
 
-        // mock the console.error method
         const consoleErrorMock = jest.spyOn(console, 'error').mockImplementation(() => { });
 
         render(<CreatePage />);
-        await act(() => userEvent.type(screen.getByLabelText('Title'), 'Test Title'));
-        await act(() => userEvent.type(screen.getByLabelText('Description'), 'Test Description'));
-        await act(() => fireEvent.click(screen.getByRole('button', { name: 'Submit' })));
+        await act(async() => userEvent.type(screen.getByLabelText('Title'), 'Test Title'));
+        await act(async () => userEvent.type(screen.getByLabelText('Description'), 'Test Description'));
+        await act(async() => userEvent.click(screen.getByRole('button', { name: 'Submit' })));
 
         await waitFor(() => {
             expect(screen.getByText('An unexpected error has occurred')).toBeInTheDocument();
