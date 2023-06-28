@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { TextField, Button, Typography } from '@mui/material';
+import { TextField, Button, Typography, CircularProgress } from '@mui/material';
 import Navbar from '@/components/Navbar/Navbar';
 import styles from './Create.module.css';
 import SnackbarAlert from '@/components/SnackbarAlert/SnackbarAlert';
@@ -10,41 +10,41 @@ const CreatePage: FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [alert, setAlert] = useState<{ severity: 'success' | 'error'; message: string } | null>(null);
 
-const formik = useFormik({
-  initialValues: {
-    title: '',
-    description: '',
-  },
-  validationSchema: Yup.object({
-    title: Yup.string().required('Title is required'),
-    description: Yup.string().required('Description is required'),
-  }),
-  onSubmit: async (values, { resetForm }) => {
-    setIsSubmitting(true);
-    try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-      const response = await fetch(`${apiUrl}/articles`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(values),
-      });
-      if (response.ok) {
-        setAlert({ severity: 'success', message: 'Article created successfully' });
-        resetForm();
-      } else {
+  const formik = useFormik({
+    initialValues: {
+      title: '',
+      description: '',
+    },
+    validationSchema: Yup.object({
+      title: Yup.string().required('Title is required'),
+      description: Yup.string().required('Description is required'),
+    }),
+    onSubmit: async (values, { resetForm }) => {
+      setIsSubmitting(true);
+      try {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+        const response = await fetch(`${apiUrl}/articles`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(values),
+        });
+        if (response.ok) {
+          setAlert({ severity: 'success', message: 'Article created successfully' });
+          resetForm();
+        } else {
+          setAlert({ severity: 'error', message: 'An unexpected error has occurred' });
+          console.error(`HTTP error: ${response.status}`);
+        }
+      } catch (error) {
         setAlert({ severity: 'error', message: 'An unexpected error has occurred' });
-        console.error(`HTTP error: ${response.status}`);
+        console.error(error);
+      } finally {
+        setIsSubmitting(false);
       }
-    } catch (error) {
-      setAlert({ severity: 'error', message: 'An unexpected error has occurred' });
-      console.error(error);
-    } finally {
-      setIsSubmitting(false);
-    }
-  },
-});
+    },
+  });
 
   const handleCloseAlert = () => {
     setAlert(null);
@@ -92,12 +92,11 @@ const formik = useFormik({
           rows={4}
         />
         <Button
-          type="submit"
           variant="contained"
-          //Todo: Show a loading for submitting
-          disabled={isSubmitting || !formik.isValid}
+          type="submit"
+          disabled={isSubmitting  || !formik.isValid}
         >
-          Submit
+          {isSubmitting ? <CircularProgress size={24} /> : "Submit"}
         </Button>
       </form>
     </div>
