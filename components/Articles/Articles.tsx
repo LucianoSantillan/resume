@@ -1,8 +1,9 @@
 import React from 'react';
-import { Typography, Paper, Button } from '@mui/material';
+import { Button } from '@mui/material';
 import { useRouter } from 'next/router';
 import styles from './Articles.module.css';
 import { Article } from '@/pages/articles';
+import { routes } from '@/routes';
 
 function Articles() {
   const router = useRouter();
@@ -35,7 +36,7 @@ function Articles() {
   ];
 
   const handleWatchMoreClick = () => {
-    router.push('/articles');
+    router.push(routes.ARTICLES);
   };
 
   return (

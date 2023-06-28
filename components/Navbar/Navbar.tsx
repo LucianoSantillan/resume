@@ -8,6 +8,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import styles from './Navbar.module.css';
 import { useRouter } from 'next/router';
+import { routes } from '@/routes';
 
 function Navbar() {
   const [burgerMenuOpen, setBurgerMenuOpen] = useState(false);
@@ -36,25 +37,25 @@ function Navbar() {
   const handleNavLinkClick = (clickedNavItem: NavItem) => {
     setBurgerMenuOpen(false);
     if (clickedNavItem === NavItem.about) {
-      if (router.pathname === '/') {
+      if (router.pathname === routes.HOME) {
         scrollToElement(ABOUT_SECTION_ID);
       } else {
         router.push(`/#${ABOUT_SECTION_ID}`);
       }
     } else if (clickedNavItem === NavItem.experience) {
-      if (router.pathname === '/') {
+      if (router.pathname === routes.HOME) {
         scrollToElement(SKILLS_AND_EXPERIENCE_SECTION_ID);
       } else {
         router.push(`/#${SKILLS_AND_EXPERIENCE_SECTION_ID}`);
       }
     } else if (clickedNavItem === NavItem.contact) {
-      if (router.pathname === '/') {
+      if (router.pathname === routes.HOME) {
         scrollToElement(CONTACT_SECTION_ID);
       } else {
         router.push(`/#${CONTACT_SECTION_ID}`);
       }
     } else if (clickedNavItem === NavItem.articles) {
-      router.push('/articles');
+      router.push(routes.ARTICLES);
     }
   };
 
