@@ -16,6 +16,10 @@ jest.mock('react-scroll', () => ({
     },
 }));
 
+jest.mock('next/router', () => ({
+    useRouter: jest.fn().mockReturnValue({push: jest.fn(), pathname: "/"}),
+}));
+
 describe('Navbar', () => {
 
     beforeEach(() => {

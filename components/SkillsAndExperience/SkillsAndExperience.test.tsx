@@ -12,8 +12,8 @@ describe('SkillsAndExperience', () => {
 
       it('should render SkillsTab component by default', () => {
         render(<SkillsAndExperience />);
-        expect(screen.queryByRole('tabpanel', { name: /skills/i })).not.toBeInTheDocument();
-        expect(screen.queryByRole('tabpanel', { name: /experience/i })).toBeInTheDocument();
+        expect(screen.queryByRole('tabpanel', { name: /skills/i })).toBeInTheDocument();
+        expect(screen.queryByRole('tabpanel', { name: /experience/i })).not.toBeInTheDocument();
       });
 
       it('should render VerticalTabs component when Experience tab is clicked', async () => {
