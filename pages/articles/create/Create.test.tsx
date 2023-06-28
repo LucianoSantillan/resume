@@ -11,20 +11,20 @@ jest.mock('next/router', () => ({
 //WHY THIS CODE EXIST?: Because of an error message that it was imposible to solve. The page solution: https://cloud.tencent.com/developer/ask/sof/106906222/answer/132192103
 const originalConsoleError = console.error;
 console.error = (...args) => {
-  const firstArg = args[0];
-  if (
-    typeof args[0] === 'string' &&
-    (args[0].startsWith(
-      "Warning: It looks like you're using the wrong act()"
-    ) ||
-      firstArg.startsWith(
-        'Warning: The current testing environment is not configured to support act'
-      ) ||
-      firstArg.startsWith('Warning: You seem to have overlapping act() calls'))
-  ) {
-    return;
-  }
-  originalConsoleError.apply(console, args);
+    const firstArg = args[0];
+    if (
+        typeof args[0] === 'string' &&
+        (args[0].startsWith(
+            "Warning: It looks like you're using the wrong act()"
+        ) ||
+            firstArg.startsWith(
+                'Warning: The current testing environment is not configured to support act'
+            ) ||
+            firstArg.startsWith('Warning: You seem to have overlapping act() calls'))
+    ) {
+        return;
+    }
+    originalConsoleError.apply(console, args);
 };
 
 describe('CreatePage', () => {
@@ -69,9 +69,9 @@ describe('CreatePage', () => {
         const consoleErrorMock = jest.spyOn(console, 'error').mockImplementation(() => { });
 
         render(<CreatePage />);
-        await act(async() => userEvent.type(screen.getByLabelText('Title'), 'Test Title'));
+        await act(async () => userEvent.type(screen.getByLabelText('Title'), 'Test Title'));
         await act(async () => userEvent.type(screen.getByLabelText('Description'), 'Test Description'));
-        await act(async() => userEvent.click(screen.getByRole('button', { name: 'Submit' })));
+        await act(async () => userEvent.click(screen.getByRole('button', { name: 'Submit' })));
 
         await waitFor(() => {
             expect(screen.getByText('An unexpected error has occurred')).toBeInTheDocument();
@@ -80,5 +80,29 @@ describe('CreatePage', () => {
 
         fetchMock.mockRestore();
         consoleErrorMock.mockRestore();
+    });
+
+    it('should resets the form after a successful article creation', async () => {
+        // Mock the fetch API
+        const mockFetch = jest.fn().mockResolvedValueOnce({ ok: true });
+        global.fetch = mockFetch;
+
+        // Render the CreatePage component
+        render(<CreatePage />);
+
+        // Fill in the form fields
+        const titleInput = screen.getByLabelText('Title');
+        const descriptionInput = screen.getByLabelText('Description');
+        await act(async () => userEvent.type(screen.getByLabelText('Title'), 'Test Title'));
+        await act(async () => userEvent.type(screen.getByLabelText('Description'), 'Test Description'));
+
+        // Submit the form
+        await act(async () => userEvent.click(screen.getByRole('button', { name: 'Submit' })));
+
+        // Wait for the form to reset
+        await waitFor(() => {
+            expect(titleInput).toHaveValue('');
+            expect(descriptionInput).toHaveValue('');
+        });
     });
 });
