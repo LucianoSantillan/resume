@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { Box, Button, IconButton, TextField, Typography } from '@mui/material';
 import { Visibility } from '@mui/icons-material';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import * as yup from 'yup';
 
 const schema = yup.object().shape({
-  email: yup.string().email('Invalid email').required('Email is required'),
+  username: yup.string().required('Username is required'),
   password: yup.string().required('Password is required'),
 });
 
@@ -18,9 +18,26 @@ const LoginPage = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleSubmit = async (values: { email: string, password: string }) => {
-    // TODO: Implement login logic
-    router.push('/');
+  const handleSubmit = async (values: { username: string, password: string }) => {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+      const response = await fetch(`${apiUrl}/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        console.log(data.token);
+        router.push('/');
+      } else {
+        console.error(data.message);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -28,20 +45,21 @@ const LoginPage = () => {
       <Box sx={{ width: '300px' }}>
         <Typography variant="h4" sx={{ textAlign: 'center', mb: 2 }}>Login</Typography>
         <Formik
-          initialValues={{ email: '', password: '' }}
+          initialValues={{ username: '', password: '' }}
           validationSchema={schema}
           onSubmit={handleSubmit}
         >
-          {({ isSubmitting }) => (
+          {({ isSubmitting, touched, errors }) => (
             <Form style={{ display: 'flex', flexDirection: 'column' }}>
               <Field
-                name="email"
+                name="username"
                 as={TextField}
-                label="Email"
-                type="email"
+                label="Username"
+                type="text"
                 fullWidth
                 margin="normal"
-                error={<ErrorMessage name="email" />}
+                error={touched.username && Boolean(errors.username)}
+                helperText={touched.username && errors.username}
               />
               <Field
                 name="password"
@@ -50,7 +68,8 @@ const LoginPage = () => {
                 type={showPassword ? 'text' : 'password'}
                 fullWidth
                 margin="normal"
-                error={<ErrorMessage name="password" />}
+                error={touched.password && Boolean(errors.password)}
+                helperText={touched.password && errors.password}
                 InputProps={{
                   endAdornment: (
                     <IconButton onClick={handleTogglePassword} edge="end">
