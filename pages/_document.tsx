@@ -1,13 +1,21 @@
 import React from 'react'
 import { Html, Head, Main, NextScript } from 'next/document'
+import { Session } from 'next-auth'
+import { SessionProvider } from 'next-auth/react'
 
-export default function Document() {
+interface DocumentProps {
+  session: Session
+}
+
+export default function Document({ session }: DocumentProps) {
   return (
     <Html lang="en">
       <Head />
       <body>
-        <Main />
-        <NextScript />
+        <SessionProvider session={session}>
+          <Main />
+          <NextScript />
+        </SessionProvider>
       </body>
     </Html>
   )

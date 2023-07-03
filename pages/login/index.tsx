@@ -4,6 +4,7 @@ import { Box, Button, IconButton, TextField, Typography } from '@mui/material';
 import { Visibility } from '@mui/icons-material';
 import { Formik, Form, Field } from 'formik';
 import * as yup from 'yup';
+import { signIn } from 'next-auth/react';
 
 const schema = yup.object().shape({
   username: yup.string().required('Username is required'),
@@ -20,21 +21,27 @@ const LoginPage = () => {
 
   const handleSubmit = async (values: { username: string, password: string }) => {
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-      const response = await fetch(`${apiUrl}/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(values),
+      const result = await signIn("credentials", {
+        username: values.username,
+        password: values.password,
+        redirect: true,
+        callbackUrl: "/articles/create",
       });
-      const data = await response.json();
-      if (response.ok) {
-        console.log(data.token);
-        router.push('/');
-      } else {
-        console.error(data.message);
-      }
+      // const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+      // const response = await fetch(`${apiUrl}/login`, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify(values),
+      // });
+      // const data = await response.json();
+      // if (response.ok) {
+      //   localStorage.setItem('token', data.token);
+      //   router.push('/articles/create');
+      // } else {
+      //   console.error(data.message);
+      // }
     } catch (error) {
       console.error(error);
     }

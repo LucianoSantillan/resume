@@ -6,6 +6,9 @@ import Navbar from '@/components/Navbar/Navbar';
 import styles from './Create.module.css';
 import SnackbarAlert from '@/components/SnackbarAlert/SnackbarAlert';
 import { routes } from '@/routes';
+import { GetServerSideProps } from 'next';
+import { parseCookies } from 'nookies';
+import { signOut } from 'next-auth/react';
 
 const CreatePage: FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -103,27 +106,5 @@ const CreatePage: FC = () => {
     </div>
   );
 };
-
-export async function getServerSideProps(
-  // context
-  ) {
-  // const { auth } = parseCookies(context)
-
-  // If no auth cookie is found, redirect the user to the login page
-  // if (!auth) {
-  if (!false) {
-    return {
-      redirect: {
-        destination: routes.LOGIN,
-        permanent: false,
-      },
-    }
-  }
-
-  // If auth cookie is found, continue to render the page
-  return {
-    props: {}, // add your own props as necessary
-  }
-}
 
 export default CreatePage;
