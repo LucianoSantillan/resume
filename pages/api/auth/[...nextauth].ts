@@ -3,6 +3,10 @@ import NextAuth from "next-auth";
 import type { NextAuthOptions } from "next-auth";
 import { User } from "next-auth";
 
+interface CustomUser extends User {
+    token: string
+}
+
 export const authOptions: NextAuthOptions = {
     // Configure one or more authentication providers
     providers: [
@@ -25,7 +29,7 @@ export const authOptions: NextAuthOptions = {
                     type: "password",
                 },
             },
-            async authorize(credentials, req) {
+            async authorize(credentials, req): Promise<CustomUser | null> {
                 const { username, password } = credentials as any;
                 const res = await fetch("http://localhost:3001/login", {
                     method: "POST",
@@ -40,8 +44,6 @@ export const authOptions: NextAuthOptions = {
 
                 const user = await res.json();
 
-                console.log({ user });
-
                 if (res.ok && user.token) {
                     console.log("logged successfully")
                     return user;
@@ -49,6 +51,18 @@ export const authOptions: NextAuthOptions = {
             },
         }),
     ],
+
+    callbacks: {
+        async jwt({ token, user }) {
+            return { ...token, ...user };
+        },
+        async session({ session, token, user }) {
+            // Send properties to the client, like an access_token from a provider.
+            session.user = token;
+
+            return session;
+        },
+    },
 
     session: { strategy: "jwt" },
 

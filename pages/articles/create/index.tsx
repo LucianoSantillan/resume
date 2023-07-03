@@ -5,14 +5,13 @@ import { TextField, Button, Typography, CircularProgress } from '@mui/material';
 import Navbar from '@/components/Navbar/Navbar';
 import styles from './Create.module.css';
 import SnackbarAlert from '@/components/SnackbarAlert/SnackbarAlert';
-import { routes } from '@/routes';
-import { GetServerSideProps } from 'next';
-import { parseCookies } from 'nookies';
-import { signOut } from 'next-auth/react';
+import { getSession, useSession } from 'next-auth/react';
 
 const CreatePage: FC = () => {
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [alert, setAlert] = useState<{ severity: 'success' | 'error'; message: string } | null>(null);
+  const {data:session} = useSession()
 
   const formik = useFormik({
     initialValues: {
@@ -30,6 +29,7 @@ const CreatePage: FC = () => {
         const response = await fetch(`${apiUrl}/articles`, {
           method: 'POST',
           headers: {
+            'Authorization': `Bearer ${session?.user?.token}`,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(values),
@@ -48,6 +48,8 @@ const CreatePage: FC = () => {
         setIsSubmitting(false);
       }
     },
+
+
   });
 
   const handleCloseAlert = () => {
