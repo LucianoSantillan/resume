@@ -1,5 +1,6 @@
 export const routes = {
     HOME: "/",
     ARTICLES: "/articles",
-    LOGIN: "/login"
+    LOGIN: "/login",
+    ADMIN_CREATE_ARTICLES: "/admin/articles"
 }

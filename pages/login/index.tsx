@@ -5,6 +5,7 @@ import { Visibility } from '@mui/icons-material';
 import { Formik, Form, Field } from 'formik';
 import * as yup from 'yup';
 import { signIn } from 'next-auth/react';
+import { routes } from '@/routes';
 
 const schema = yup.object().shape({
   username: yup.string().required('Username is required'),
@@ -25,7 +26,7 @@ const LoginPage = () => {
         username: values.username,
         password: values.password,
         redirect: true,
-        callbackUrl: "/articles/create",
+        callbackUrl: routes.ADMIN_CREATE_ARTICLES,
       });
       // const apiUrl = process.env.NEXT_PUBLIC_API_URL;
       // const response = await fetch(`${apiUrl}/login`, {
