@@ -4,7 +4,7 @@ import { Box, Button, IconButton, TextField, Typography } from '@mui/material';
 import { Visibility } from '@mui/icons-material';
 import { Formik, Form, Field } from 'formik';
 import * as yup from 'yup';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { routes } from '@/routes';
 
 const schema = yup.object().shape({
@@ -13,7 +13,11 @@ const schema = yup.object().shape({
 });
 
 const LoginPage = () => {
+  const {data:session} = useSession()
   const router = useRouter();
+
+  if(session?.user) router.push(routes.ADMIN_CREATE_ARTICLES)
+  
   const [showPassword, setShowPassword] = useState(false);
 
   const handleTogglePassword = () => {
@@ -49,9 +53,9 @@ const LoginPage = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', background: "#F9F9F9" }}>
       <Box sx={{ width: '300px' }}>
-        <Typography variant="h4" sx={{ textAlign: 'center', mb: 2 }}>Login</Typography>
+        <Typography variant="h4" sx={{ textAlign: 'center', mb: 2, color: '#212529' }}>Login</Typography>
         <Formik
           initialValues={{ username: '', password: '' }}
           validationSchema={schema}
