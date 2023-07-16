@@ -62,4 +62,18 @@ describe('LoginPage', () => {
             })
         )
     });
+
+    // it('displays an error message when an unexpected error occurs during login', async () => {
+    //     render(<LoginPage />);
+    //     const usernameInput = screen.getByLabelText('Username');
+    //     const passwordInput = screen.getByLabelText('Password');
+    //     const loginButton = screen.getByRole('button', { name: 'Login' });
+    //     fireEvent.change(usernameInput, { target: { value: 'testuser' } });
+    //     fireEvent.change(passwordInput, { target: { value: 'testpassword' } });
+    //     jest.spyOn(window, 'fetch').mockImplementation(() => {
+    //         throw new Error('Unexpected error');
+    //     });
+    //     fireEvent.click(loginButton);
+    //     await screen.findByText('Unexpected error');
+    // });
 });

@@ -7,6 +7,8 @@ interface CustomUser extends User {
     token: string
 }
 
+export const CONNECTION_ERROR_MESSAGE = "CONNECTION_ERROR_MESSAGE"
+
 export const authOptions: NextAuthOptions = {
     // Configure one or more authentication providers
     providers: [
@@ -31,24 +33,33 @@ export const authOptions: NextAuthOptions = {
             },
             async authorize(credentials, req): Promise<CustomUser | null> {
                 const { username, password } = credentials as any;
-                const res = await fetch("http://localhost:3001/login", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        username,
-                        password,
-                    }),
-                });
+                try {
+                    const res = await fetch("http://localhost:3001/login", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            username,
+                            password,
+                        }),
+                    });
+                    const user = await res.json();
 
-                const user = await res.json();
+                    if (res.ok && user.token) {
+                        console.log("logged successfully")
+                        return user;
+                    } else {
+                        return null
+                    }
 
-                if (res.ok && user.token) {
-                    console.log("logged successfully")
-                    return user;
-                } else return null;
-            },
+                } catch {
+                    throw new Error(CONNECTION_ERROR_MESSAGE);
+                }
+
+
+
+            }
         }),
     ],
 
