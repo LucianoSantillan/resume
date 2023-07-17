@@ -42,14 +42,14 @@ function Articles() {
   return (
     <div className={styles.root}>
       <div data-aos="fade-left" className={styles.title}>SELECTED ARTICLES</div>
-      <div style={{ display: 'grid', gap: '30px', gridTemplateColumns: '1fr 1fr 1fr', justifyItems: 'center' }}>
+      <div className={styles.grid}>
         {articles.map((article) => (
-          <div style={{ display: 'flex' }} key={article.id}>
+          <div className={styles.article} key={article.id}>
             <Article article={article} />
           </div>
         ))}
       </div>
-      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '30px' }}>
+      <div className={styles.buttonContainer}>
         <Button variant="contained" color="primary" onClick={handleWatchMoreClick}>
           Watch more articles
         </Button>
