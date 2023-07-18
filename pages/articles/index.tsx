@@ -5,7 +5,7 @@ import Navbar from '@/components/Navbar/Navbar';
 import { useRouter } from 'next/router';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 
-interface Article {
+export interface Article {
   id: number;
   title: string;
   description: string;

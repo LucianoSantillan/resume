@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 import { useRouter } from 'next/router';
 import styles from './Articles.module.css';
@@ -8,36 +8,27 @@ import { routes } from '@/routes';
 function Articles() {
   const router = useRouter();
 
-  const articles = [
-    {
-      id: 1,
-      title: 'Article 1',
-      description: 'This is the description for article 1.',
-      imageUrl: 'https://picsum.photos/id/237/400/300',
-    },
-    {
-      id: 2,
-      title: 'Article 2',
-      description: 'This is the description for article 2.',
-      imageUrl: 'https://picsum.photos/id/238/400/300',
-    },
-    {
-      id: 3,
-      title: 'Article 3',
-      description: 'This is the description for article 3.',
-      imageUrl: 'https://picsum.photos/id/239/400/300',
-    },
-    {
-      id: 4,
-      title: 'Article 4',
-      description: 'This is the description for article 4.',
-      imageUrl: 'https://picsum.photos/id/240/400/300',
-    },
-  ];
+  const [articles, setArticles] = useState<Article[]>([]);
 
   const handleWatchMoreClick = () => {
     router.push(routes.ARTICLES);
   };
+
+  useEffect(() => {
+    async function fetchArticles() {
+      try {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+        const response = await fetch(`${apiUrl}/articles?page=1&pageSize=6`);
+        const articles = await response.json() as [];
+        if (articles.length > 0) setArticles(articles);
+      }
+      catch {
+        // setOpen(true);
+      }
+    }
+
+    fetchArticles();
+  }, []);
 
   return (
     <div className={styles.root}>
