@@ -4,6 +4,8 @@
   /*navbar height */
   background-color: #F9F9F9;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .paper {
@@ -33,4 +35,9 @@
   width: 1px;
   background-color: #8c979e;
   margin: 0 8px;
+}
+
+.pagination {
+  margin-top: 20px;
+  align-self: center;
 }

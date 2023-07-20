@@ -37,6 +37,7 @@ const LoginPage = () => {
       });
       if (result?.error === CONNECTION_ERROR_MESSAGE) {
         setAlert({ severity: "error", message: 'Unexpected error'})
+        console.error("CONNECTION_ERROR")
       }
     } catch (error) {
 

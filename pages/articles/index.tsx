@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Grid, Typography, Paper, Button, Snackbar } from '@mui/material';
+import { Grid, Typography, Paper, Button, Snackbar, Pagination } from '@mui/material';
 import styles from './ArticlesPage.module.css';
 import Navbar from '@/components/Navbar/Navbar';
 import { useRouter } from 'next/router';
@@ -23,6 +23,8 @@ const NONE_ARTICLE_HAS_BEEN_CREATED_YET = "NONE_ARTICLE_HAS_BEEN_CREATED_YET"
 function Articles() {
 
   const router = useRouter();
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const [articles, setArticles] = useState<Article[] | typeof NONE_ARTICLE_HAS_BEEN_CREATED_YET>([]);
   const [open, setOpen] = React.useState(false);
@@ -31,22 +33,28 @@ function Articles() {
     router.push(`/articles/${articleId}`);
   };
 
+  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+  };
+
   useEffect(() => {
     async function fetchArticles() {
       try {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-        const response = await fetch(`${apiUrl}/articles`);
-        const articles = await response.json() as [];
-        if (articles.length === 0) setArticles(NONE_ARTICLE_HAS_BEEN_CREATED_YET)
-        else if (articles.length > 0) setArticles(articles);
+        const response = await fetch(`${apiUrl}/articles?page=${page}&pageSize=6`);
+        const data = await response.json();
+        if (data.articles.length === 0) setArticles(NONE_ARTICLE_HAS_BEEN_CREATED_YET)
+        else if (data.articles.length > 0) setArticles(data.articles);
+        setTotalPages(data.totalPages);
       }
-      catch {
+      catch(error) {
+        console.error(error)
         setOpen(true);
       }
     }
 
     fetchArticles();
-  }, []);
+  }, [page]);
 
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
@@ -77,6 +85,7 @@ function Articles() {
           </Grid>
         ))}
       </Grid>
+      <Pagination className={styles.pagination} count={totalPages} page={page} onChange={handlePageChange} />
     </div>
   );
 }
