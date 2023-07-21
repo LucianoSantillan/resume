@@ -1,0 +1,43 @@
+.root {
+    padding: 50px 50px;
+    margin-top: 56px;
+    /*navbar height */
+    background-color: #F9F9F9;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .paper {
+    text-align: left;
+    color: #333;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+  }
+  
+  .image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .author {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .author-line {
+    height: 12px;
+    width: 1px;
+    background-color: #8c979e;
+    margin: 0 8px;
+  }
+  
+  .pagination {
+    margin-top: 20px;
+    align-self: center;
+  }

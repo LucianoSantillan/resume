@@ -1,15 +1,11 @@
-import React, { FC, useEffect, useState } from 'react';
-import { Grid, Typography, Paper, Button, Snackbar, Pagination } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Grid, Snackbar, Pagination } from '@mui/material';
 import styles from './ArticlesPage.module.css';
 import Navbar from '@/components/Navbar/Navbar';
 import { useRouter } from 'next/router';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
-
-export interface Article {
-  id: number;
-  title: string;
-  description: string;
-}
+import { Article as ArticleDomain } from '@/domain/models';
+import { Article } from '../../components/Article/Article';
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -26,7 +22,7 @@ function Articles() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  const [articles, setArticles] = useState<Article[] | typeof NONE_ARTICLE_HAS_BEEN_CREATED_YET>([]);
+  const [articles, setArticles] = useState<ArticleDomain[] | typeof NONE_ARTICLE_HAS_BEEN_CREATED_YET>([]);
   const [open, setOpen] = React.useState(false);
 
   const goToArticle = (articleId: number) => {
@@ -79,7 +75,7 @@ function Articles() {
         </Alert>
       </Snackbar>
       <Grid container spacing={3}>
-        {articles.map((article: Article) => (
+        {articles.map((article: ArticleDomain) => (
           <Grid item xs={12} sm={6} md={4} key={article.id}>
             <Article handleGoToArticle={() => goToArticle(article.id)} article={article} />
           </Grid>
@@ -92,20 +88,4 @@ function Articles() {
 
 export default Articles;
 
-export const Article: FC<{ article: Article, handleGoToArticle?: () => void }> = ({ article, handleGoToArticle }) => {
-  return (
-    <Paper className={styles.paper}>
-      <div style={{ padding: '18px' }}>
-        <Typography variant="h5" component="h2" style={{ marginBottom: '8px' }}>
-          {article.title}
-        </Typography>
-        <Typography variant="body2" component="p">
-          {article.description}
-        </Typography>
-        <Button onClick={handleGoToArticle} variant="contained" color="primary" style={{ marginTop: '16px' }}>
-          Read More
-        </Button>
-      </div>
-    </Paper>
-  )
-}
+

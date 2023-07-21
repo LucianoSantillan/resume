@@ -33,7 +33,6 @@ const LoginPage = () => {
         username: values.username,
         password: values.password,
         redirect: false,
-        // callbackUrl: routes.ADMIN_CREATE_ARTICLES,
       });
       if (result?.error === CONNECTION_ERROR_MESSAGE) {
         setAlert({ severity: "error", message: 'Unexpected error'})

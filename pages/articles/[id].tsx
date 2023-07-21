@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Article } from '.';
+import { Article } from '../../components/Article/Article';
 import { useRouter } from 'next/router';
 import styles from './Article.module.css'
 import Navbar from '@/components/Navbar/Navbar';

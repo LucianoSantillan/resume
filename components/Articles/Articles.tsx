@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 import { useRouter } from 'next/router';
 import styles from './Articles.module.css';
-import { Article } from '@/pages/articles';
 import { routes } from '@/routes';
+import { Article as ArticleDomain } from '@/domain/models';
+import { Article } from '../Article/Article';
+import { getArticles } from '@/services/articles.service';
 
 function Articles() {
   const router = useRouter();
 
-  const [articles, setArticles] = useState<Article[]>([]);
+  const [articles, setArticles] = useState<ArticleDomain[]>([]);
 
   const handleWatchMoreClick = () => {
     router.push(routes.ARTICLES);
@@ -17,13 +19,11 @@ function Articles() {
   useEffect(() => {
     async function fetchArticles() {
       try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-        const response = await fetch(`${apiUrl}/articles?page=1&pageSize=6`);
-        const articles = await response.json() as [];
+        const {articles} = await getArticles(1, 6);
         if (articles.length > 0) setArticles(articles);
       }
-      catch {
-        // setOpen(true);
+      catch(e) {
+        console.error()
       }
     }
 
