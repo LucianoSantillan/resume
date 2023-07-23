@@ -8,6 +8,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { SessionProvider } from 'next-auth/react';
+import { ToastProvider } from '@/contexts/toastProvider';
 
 function Loading() {
   return (
@@ -38,5 +39,5 @@ export default function App({ Component, pageProps }: AppProps) {
     }
   }, [])
 
-  return loading ? <Loading /> : <SessionProvider><Component {...pageProps} /></SessionProvider>
+  return <ToastProvider> {loading ? <Loading /> : <SessionProvider><Component {...pageProps} /></SessionProvider>}</ToastProvider>
 }

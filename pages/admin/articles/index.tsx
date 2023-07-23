@@ -4,14 +4,14 @@ import * as Yup from 'yup';
 import { TextField, Button, Typography, CircularProgress } from '@mui/material';
 import Navbar from '@/components/Navbar/Navbar';
 import styles from './Create.module.css';
-import SnackbarAlert from '@/components/SnackbarAlert/SnackbarAlert';
-import { getSession, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
+import { useToast } from '@/contexts/toastProvider';
 
 const CreatePage: FC = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [alert, setAlert] = useState<{ severity: 'success' | 'error'; message: string } | null>(null);
   const {data:session} = useSession()
+  const {openToast, openUnexpectedErrorToast} = useToast()
 
   const formik = useFormik({
     initialValues: {
@@ -35,14 +35,14 @@ const CreatePage: FC = () => {
           body: JSON.stringify(values),
         });
         if (response.ok) {
-          setAlert({ severity: 'success', message: 'Article created successfully' });
+          openToast({ severity: 'success', message: 'Article created successfully' });
           resetForm();
         } else {
-          setAlert({ severity: 'error', message: 'An unexpected error has occurred' });
+          openUnexpectedErrorToast()
           console.error(`HTTP error: ${response.status}`);
         }
       } catch (error) {
-        setAlert({ severity: 'error', message: 'An unexpected error has occurred' });
+        openUnexpectedErrorToast()
         console.error(error);
       } finally {
         setIsSubmitting(false);
@@ -52,21 +52,9 @@ const CreatePage: FC = () => {
 
   });
 
-  const handleCloseAlert = () => {
-    setAlert(null);
-  };
-
   return (
     <div className={styles.root}>
       <Navbar />
-      {alert && (
-        <SnackbarAlert
-          open={true}
-          onClose={handleCloseAlert}
-          severity={alert.severity}
-          message={alert.message}
-        />
-      )}
       <Typography className={styles.title} variant="h4" gutterBottom>
         Create Article
       </Typography>

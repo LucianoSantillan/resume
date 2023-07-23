@@ -6,11 +6,13 @@ import { routes } from '@/routes';
 import { Article as ArticleDomain } from '@/domain/models';
 import { Article } from '../Article/Article';
 import { getArticles } from '@/services/articles.service';
+import { useToast } from '@/contexts/toastProvider';
 
 function Articles() {
   const router = useRouter();
 
   const [articles, setArticles] = useState<ArticleDomain[]>([]);
+  const {openUnexpectedErrorToast} = useToast()
 
   const handleWatchMoreClick = () => {
     router.push(routes.ARTICLES);
@@ -23,7 +25,7 @@ function Articles() {
         if (articles.length > 0) setArticles(articles);
       }
       catch(e) {
-        console.error()
+        openUnexpectedErrorToast()
       }
     }
 

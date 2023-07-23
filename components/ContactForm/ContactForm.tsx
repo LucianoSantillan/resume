@@ -1,9 +1,8 @@
-import { Box, Button, CircularProgress, TextField, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, TextField } from "@mui/material";
 import React, { useState } from "react";
 import styles from "./ContactForm.module.css";
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import fetch from 'isomorphic-fetch';
+import { useToast } from "@/contexts/toastProvider";
 export const CONTACT_SECTION_ID = "contact-section";
 
 interface FormData {
@@ -11,10 +10,6 @@ interface FormData {
     email: string;
     message: string;
 }
-
-const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
 
 const ContactForm = () => {
     const [formData, setFormData] = useState<FormData>({
@@ -27,9 +22,8 @@ const ContactForm = () => {
         email: false,
         message: false,
     });
-    const [successOpen, setSuccessOpen] = useState(false);
-    const [errorOpen, setErrorOpen] = useState(false);
     const [loading, setLoading] = useState(false);
+    const { openToast, openUnexpectedErrorToast } = useToast();
 
     const handleFormChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -93,25 +87,17 @@ const ContactForm = () => {
                         email: "",
                         message: "",
                     });
-                    setSuccessOpen(true);
+                    openToast({ message: "Your message has been sent!", severity: "success" })
                 } else {
-                    setErrorOpen(true);
+                    openToast({ message: "There was an error sending your message. Please try again later.", severity: "error" })
                 }
             } catch (error) {
                 console.error(error);
-                setErrorOpen(true);
+                openUnexpectedErrorToast()
             } finally {
                 setLoading(false);
             }
         }
-    };
-
-    const handleSuccessClose = () => {
-        setSuccessOpen(false);
-    };
-
-    const handleErrorClose = () => {
-        setErrorOpen(false);
     };
 
     return (
@@ -166,28 +152,6 @@ const ContactForm = () => {
                 >
                     {loading ? <CircularProgress size={24} /> : "Submit"}
                 </Button>
-                {successOpen && (
-                    <Snackbar
-                        open={successOpen}
-                        autoHideDuration={6000}
-                        onClose={handleSuccessClose}
-                    >
-                        <Alert onClose={handleSuccessClose} severity="success">
-                            Your message has been sent!
-                        </Alert>
-                    </Snackbar>
-                )}
-                {errorOpen && (
-                    <Snackbar
-                        open={errorOpen}
-                        autoHideDuration={6000}
-                        onClose={handleErrorClose}
-                    >
-                        <Alert onClose={handleErrorClose} severity="error">
-                            There was an error sending your message. Please try again later.
-                        </Alert>
-                    </Snackbar>
-                )}
             </form>
         </Box>
     );

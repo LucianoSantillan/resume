@@ -3,9 +3,10 @@ import { Article } from '../../components/Article/Article';
 import { useRouter } from 'next/router';
 import styles from './Article.module.css'
 import Navbar from '@/components/Navbar/Navbar';
+import { Article as ArticleDomain } from '@/domain/models';
 
 const Page: React.FC = () => {
-    const [article, setArticle] = useState<Article | null>(null);
+    const [article, setArticle] = useState<ArticleDomain | null>(null);
 
     const router = useRouter();
     const { id } = router.query;
