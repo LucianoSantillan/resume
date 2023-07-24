@@ -18,6 +18,10 @@ function Articles() {
     router.push(routes.ARTICLES);
   };
 
+  const goToArticle = (articleId: number) => {
+    router.push(`/articles/${articleId}`);
+  };
+
   useEffect(() => {
     async function fetchArticles() {
       try {
@@ -38,7 +42,7 @@ function Articles() {
       <div className={styles.grid}>
         {articles.map((article) => (
           <div className={styles.article} key={article.id}>
-            <Article article={article} />
+            <Article article={article} handleGoToArticle={() => goToArticle(article.id)}/>
           </div>
         ))}
       </div>
